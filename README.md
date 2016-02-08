@@ -4,6 +4,8 @@ Tip is a tip calculator application for iOS.
 
 Submitted by: Julia Yu
 
+![tips demo](tips-demo.gif)
+
 Time spent: 5 hours spent in total
 
 ## User Stories
