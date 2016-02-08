@@ -28,15 +28,19 @@ class ViewController: UIViewController {
         total1.text = "$0"
         total2.text = "$0"
         total3.text = "$0"
+        
+        self.tipPanel.frame.origin.x = 320
+        self.totalPanel.frame.origin.x = -320
+        self.billPanel.frame.origin.y = 200
     
-        UIView.animateWithDuration(0.3, animations:  {() in
-            self.tipPanel.frame.origin.x = 320
-            self.totalPanel.frame.origin.x = -320
-            }, completion:{(Bool)  in
-                UIView.animateWithDuration(0.3, animations: {
-                    self.billPanel.frame.origin.y = 200
-                })
-        })
+//        UIView.animateWithDuration(0.3, animations:  {() in
+//            self.tipPanel.frame.origin.x = 320
+//            self.totalPanel.frame.origin.x = -320
+//            }, completion:{(Bool)  in
+//                UIView.animateWithDuration(0.3, animations: {
+//                    self.billPanel.frame.origin.y = 200
+//                })
+//        })
     }
     
     func showOutputs() {
@@ -46,18 +50,22 @@ class ViewController: UIViewController {
             return
         }
         
-        UIView.animateWithDuration(0.3,
-            animations:  {() in
-                self.billPanel.frame.origin.y = 70
-            },
-            completion:{(Bool) in
-                
-                UIView.animateWithDuration(0.3, animations: {
-                    self.tipPanel.frame.origin.x = 0
-                    self.totalPanel.frame.origin.x = 0
-                })
-            }
-        )
+        self.billPanel.frame.origin.y = 70
+        self.tipPanel.frame.origin.x = 0
+        self.totalPanel.frame.origin.x = 0
+        
+//        UIView.animateWithDuration(0.3,
+//            animations:  {() in
+//                self.billPanel.frame.origin.y = 70
+//            },
+//            completion:{(Bool) in
+//                
+//                UIView.animateWithDuration(0.3, animations: {
+//                    self.tipPanel.frame.origin.x = 0
+//                    self.totalPanel.frame.origin.x = 0
+//                })
+//            }
+//        )
     }
     
     func updateOutputs() {
@@ -101,16 +109,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        billInput.becomeFirstResponder()
 
         let defaultBill = defaults.stringForKey("defaultBill")
         if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
+            print("default bill is", defaultBill)
             self.billInput.text = defaultBill
             updateOutputs()
             showOutputs()
-        } else {
-            billInput.becomeFirstResponder()
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
