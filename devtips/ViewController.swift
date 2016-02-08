@@ -41,11 +41,11 @@ class ViewController: UIViewController {
         
         if (bill == "") {
             return
-        }
+        } 
         
         UIView.animateWithDuration(0.3,
             animations:  {() in
-                self.billPanel.frame.origin.y = 30
+                self.billPanel.frame.origin.y = 70
             },
             completion:{(Bool) in
                 
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         totalPanel.frame.origin.x = -320
         tipPanel.frame.origin.x = 320
-        billPanel.frame.origin.y = 30
+        billPanel.frame.origin.y = 70
     }
     
     override func viewDidLoad() {

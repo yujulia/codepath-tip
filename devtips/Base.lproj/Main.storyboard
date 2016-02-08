@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="L7n-1X-luV">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -14,16 +14,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userGuides>
                             <userLayoutGuide location="300" affinity="minX"/>
-                            <userLayoutGuide location="22" affinity="minX"/>
+                            <userLayoutGuide location="21" affinity="minX"/>
                         </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" id="TXW-k7-WOn" userLabel="billarea">
-                                <rect key="frame" x="0.0" y="45" width="320" height="68"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="uuZ-XE-1jV">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="uuZ-XE-1jV">
                                         <rect key="frame" x="116" y="18" width="181" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="40"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
@@ -145,7 +146,7 @@
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="0qa-Lv-W7a" userLabel="tiparea">
-                                <rect key="frame" x="0.0" y="147" width="320" height="116"/>
+                                <rect key="frame" x="0.0" y="161" width="320" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Meb-0V-25E">
@@ -185,6 +186,14 @@
                             <outletCollection property="gestureRecognizers" destination="4O8-9N-3FZ" appends="YES" id="tJH-XK-8R3"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="qVN-cs-Q8b">
+                        <barButtonItem key="rightBarButtonItem" image="settings_tab" id="W1c-g0-XYJ" userLabel="Settings">
+                            <color key="tintColor" red="0.64921332590000003" green="0.71041911619999998" blue="0.7484975962" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="Vf0-ln-int" kind="push" id="Hqh-Z9-56n"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="billInput" destination="uuZ-XE-1jV" id="QFT-oW-cVO"/>
                         <outlet property="billPanel" destination="TXW-k7-WOn" id="0pp-QN-wZJ"/>
@@ -204,10 +213,63 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="662" y="299"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="7rp-P6-h4z">
+            <objects>
+                <viewController id="Vf0-ln-int" customClass="SettingsViewController" customModule="devtips" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u9T-ya-2vp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Tip Percent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gDh-8X-HNI">
+                                <rect key="frame" x="25" y="95" width="189" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" red="0.44217866051116878" green="0.48456846318475505" blue="0.5143830128205128" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="obJ-KM-8Ba">
+                                <rect key="frame" x="23" y="130" width="275" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="18%"/>
+                                    <segment title="20%"/>
+                                    <segment title="22%"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tqK-7b-xpu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iWf-1S-dRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1054" y="294"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eLF-33-QyY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L7n-1X-luV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7yx-D7-8rl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xiQ-vA-dKD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qVp-b5-CEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="130" y="299"/>
         </scene>
     </scenes>
     <resources>
         <image name="person" width="480" height="480"/>
+        <image name="settings_tab" width="30" height="30"/>
     </resources>
+    <color key="tintColor" red="0.64921332590000003" green="0.71041911619999998" blue="0.7484975962" alpha="1" colorSpace="calibratedRGB"/>
 </document>

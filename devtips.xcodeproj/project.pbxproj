@@ -12,6 +12,7 @@
 		5A492DB31C685E4500A5FFC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A492DB11C685E4500A5FFC4 /* Main.storyboard */; };
 		5A492DB51C685E4500A5FFC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A492DB41C685E4500A5FFC4 /* Assets.xcassets */; };
 		5A492DB81C685E4500A5FFC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A492DB61C685E4500A5FFC4 /* LaunchScreen.storyboard */; };
+		5A492DC01C6883EA00A5FFC4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A492DBF1C6883EA00A5FFC4 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		5A492DB41C685E4500A5FFC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A492DB71C685E4500A5FFC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A492DB91C685E4500A5FFC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A492DBF1C6883EA00A5FFC4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				5A492DAD1C685E4500A5FFC4 /* AppDelegate.swift */,
 				5A492DAF1C685E4500A5FFC4 /* ViewController.swift */,
 				5A492DB11C685E4500A5FFC4 /* Main.storyboard */,
+				5A492DBF1C6883EA00A5FFC4 /* SettingsViewController.swift */,
 				5A492DB41C685E4500A5FFC4 /* Assets.xcassets */,
 				5A492DB61C685E4500A5FFC4 /* LaunchScreen.storyboard */,
 				5A492DB91C685E4500A5FFC4 /* Info.plist */,
@@ -138,6 +141,7 @@
 			files = (
 				5A492DB01C685E4500A5FFC4 /* ViewController.swift in Sources */,
 				5A492DAE1C685E4500A5FFC4 /* AppDelegate.swift in Sources */,
+				5A492DC01C6883EA00A5FFC4 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +289,7 @@
 				5A492DBE1C685E4500A5FFC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
