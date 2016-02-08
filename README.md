@@ -6,7 +6,7 @@ Submitted by: Julia Yu
 
 ![tips demo](tips-demo.gif)
 
-Time spent: 5 hours spent in total
+Time spent: 8 hours spent in total
 
 ## User Stories
 
