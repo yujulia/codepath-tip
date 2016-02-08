@@ -58,8 +58,6 @@ class ViewController: UIViewController {
                 })
             }
         )
-        
-        
     }
     
     func updateOutputs() {
@@ -72,6 +70,7 @@ class ViewController: UIViewController {
         
         defaults.setObject(String(format: "%.2f", bill), forKey: "defaultBill")
         defaults.synchronize()
+        print("updating default bill", bill)
     
         tipOutput.text = formatter.stringFromNumber(tip)
         total1.text = formatter.stringFromNumber(total)
@@ -90,7 +89,7 @@ class ViewController: UIViewController {
         billInput.placeholder = formatter.currencySymbol
     
         let defaultTip = defaults.integerForKey("defaultTip")
-    
+
         if (tipControl.selectedSegmentIndex != defaultTip) {
             tipControl.selectedSegmentIndex = defaultTip
             updateOutputs()
@@ -102,6 +101,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         let defaultBill = defaults.stringForKey("defaultBill")
         if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
             self.billInput.text = defaultBill
@@ -116,21 +116,17 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
     
     @IBAction func onEditBegin(sender: AnyObject) {
-        print("edit begin")
         clearOutputs()
         updateOutputs()
     }
     
     @IBAction func onEditEnd(sender: AnyObject) {
-        print("edit end")
         showOutputs()
     }
 
     @IBAction func onEdit(sender: AnyObject) {
-        print("edit on")
         updateOutputs()
     }
     
