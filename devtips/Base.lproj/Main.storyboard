@@ -26,10 +26,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="40"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <action selector="onEdit:" destination="BYZ-38-t0r" eventType="editingChanged" id="0Dg-YM-qTx"/>
-                                            <action selector="onEditBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="zkL-sJ-2Mj"/>
+                                            <action selector="onEditBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="9NM-xU-6mn"/>
+                                            <action selector="onEditEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="t2c-YR-Zeo"/>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" id="2ZE-3u-Rmc">
@@ -171,6 +172,9 @@
                                             <segment title="22%"/>
                                         </segments>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="onEdit:" destination="BYZ-38-t0r" eventType="valueChanged" id="R7Z-PQ-IMo"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                             </view>
@@ -183,6 +187,7 @@
                     </view>
                     <connections>
                         <outlet property="billInput" destination="uuZ-XE-1jV" id="QFT-oW-cVO"/>
+                        <outlet property="billPanel" destination="TXW-k7-WOn" id="0pp-QN-wZJ"/>
                         <outlet property="tipControl" destination="Xf1-KL-gIJ" id="nrE-MZ-feT"/>
                         <outlet property="tipOutput" destination="8zX-fa-W1F" id="dRb-pp-UwI"/>
                         <outlet property="tipPanel" destination="0qa-Lv-W7a" id="OLW-gU-uOX"/>
