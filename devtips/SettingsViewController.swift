@@ -10,26 +10,28 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var PercentSegment: UISegmentedControl!
+    
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
+    override func viewWillAppear(animated: Bool) {
+        let defaultTip = defaults.integerForKey("defaultTip")
+        PercentSegment.selectedSegmentIndex = defaultTip
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onPercentChange(sender: AnyObject) {
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let tip = PercentSegment.selectedSegmentIndex
+        
+        defaults.setObject(tip, forKey: "defaultTip")
+        defaults.synchronize()
     }
-    */
-
 }

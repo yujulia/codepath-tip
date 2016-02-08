@@ -238,11 +238,17 @@
                                     <segment title="20%"/>
                                     <segment title="22%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="onPercentChange:" destination="Vf0-ln-int" eventType="valueChanged" id="Zb4-RX-58B"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="tqK-7b-xpu"/>
+                    <connections>
+                        <outlet property="PercentSegment" destination="obJ-KM-8Ba" id="fCW-Co-OGg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWf-1S-dRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

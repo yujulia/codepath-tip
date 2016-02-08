@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipPanel: UIView!
     @IBOutlet weak var billPanel: UIView!
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     func clearOutputs() {
         tipOutput.text = "$0"
         total1.text = "$0"
@@ -57,10 +59,33 @@ class ViewController: UIViewController {
         )
     }
     
+    func updateOutputs() {
+        let tipPercent = [0.18, 0.2, 0.22]
+        let bill = NSString(string: billInput.text!).doubleValue
+        let tip = bill * tipPercent[tipControl.selectedSegmentIndex]
+        let total = tip + bill
+        let t2 = total/2
+        let t3 = total/3
+        
+        tipOutput.text = String(format: "$%.2f", tip)
+        total1.text = String(format: "$%.2f", total)
+        total2.text = String(format: "$%.2f", t2)
+        total3.text = String(format: "$%.2f", t3)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         totalPanel.frame.origin.x = -320
         tipPanel.frame.origin.x = 320
         billPanel.frame.origin.y = 70
+    
+        let defaultTip = defaults.integerForKey("defaultTip")
+        
+        if (tipControl.selectedSegmentIndex != defaultTip) {
+            tipControl.selectedSegmentIndex = defaultTip
+            updateOutputs()
+        }
+        
+        showOutputs()
     }
     
     override func viewDidLoad() {
@@ -76,6 +101,7 @@ class ViewController: UIViewController {
     
     @IBAction func onEditBegin(sender: AnyObject) {
         clearOutputs()
+        updateOutputs()
     }
     
     @IBAction func onEditEnd(sender: AnyObject) {
@@ -83,17 +109,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onEdit(sender: AnyObject) {
-        let tipPercent = [0.18, 0.2, 0.22]
-        let bill = NSString(string: billInput.text!).doubleValue
-        let tip = bill * tipPercent[tipControl.selectedSegmentIndex]
-        let total = tip + bill
-        let t2 = total/2
-        let t3 = total/3
-        
-        tipOutput.text = String(format: "$%.2f", tip)
-        total1.text = String(format: "$%.2f", total)
-        total2.text = String(format: "$%.2f", t2)
-        total3.text = String(format: "$%.2f", t3)
+        updateOutputs()
     }
     
 
