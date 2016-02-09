@@ -249,12 +249,38 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="V1o-qh-K8a">
+                                <rect key="frame" x="22" y="220" width="275" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Theme" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nti-wT-7LD">
+                                        <rect key="frame" x="0.0" y="38" width="275" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" red="0.44217866049999999" green="0.48456846320000002" blue="0.51438301279999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="BTy-iq-Lvx">
+                                        <rect key="frame" x="0.0" y="79" width="275" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="Pinku"/>
+                                            <segment title="Sax"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onThemeChange:" destination="Vf0-ln-int" eventType="valueChanged" id="Rpx-KX-5Ch"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="tqK-7b-xpu"/>
                     <connections>
                         <outlet property="PercentSegment" destination="obJ-KM-8Ba" id="fCW-Co-OGg"/>
+                        <outlet property="ThemeSegment" destination="BTy-iq-Lvx" id="FLB-HB-oe1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWf-1S-dRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
