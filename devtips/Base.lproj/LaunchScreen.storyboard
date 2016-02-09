@@ -17,9 +17,9 @@
                                 <rect key="frame" x="20" y="195" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Icon" id="tEH-4G-SeR">
-                                        <rect key="frame" x="129" y="38" width="78" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Icon" id="Hjk-b2-dDi">
+                                        <rect key="frame" x="134" y="27" width="83" height="74"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e9v-jV-ARb">
                                         <rect key="frame" x="56" y="36" width="85" height="55"/>
@@ -41,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon" width="57" height="57"/>
+        <image name="Icon" width="256" height="256"/>
     </resources>
 </document>

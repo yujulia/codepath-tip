@@ -157,7 +157,8 @@ class ViewController: UIViewController {
         let elapsed = Int(thisTime .timeIntervalSinceDate(lastTime))
     
         if (elapsed > resetSeconds) {
-            defaults.removeObjectForKey("defaultBill")
+            defaults.setObject("", forKey: "defaultBill")
+            defaults.synchronize()
         }
         
         // if we have a saved value for bill amount and its none empty and we have no previous input...
@@ -165,7 +166,9 @@ class ViewController: UIViewController {
         let defaultBill = defaults.stringForKey("defaultBill")
         if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
             self.billInput.text = defaultBill
-            firstLoad = true;
+            firstLoad = true
+        } else {
+            firstLoad = false
         }
     }
     

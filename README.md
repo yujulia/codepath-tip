@@ -4,7 +4,11 @@ Tip is a tip calculator application for iOS.
 
 Submitted by: Julia Yu
 
-![tips demo](tips-demo.gif)
+![tip demo](tip-demo.gif)
+
+After 60 seconds the bill amount should be cleared and the default tip percent still remembered.
+
+![tip demo](tip-demo-later.gif)
 
 Time spent: 8 hours spent in total
 
