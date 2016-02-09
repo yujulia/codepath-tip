@@ -134,6 +134,7 @@ class ViewController: UIViewController {
         
         formatter.numberStyle = .CurrencyStyle
         formatter.locale = NSLocale.currentLocale()
+        formatter.groupingSeparator = ","
         billInput.placeholder = formatter.currencySymbol
     
         // if default tip changed, recalculate with that tip percent
