@@ -8,6 +8,16 @@
 
 import UIKit
 
+public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+}
+
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedAscending
+}
+
+extension NSDate: Comparable { }
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var billInput: UITextField!
@@ -22,6 +32,7 @@ class ViewController: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
     let formatter = NSNumberFormatter()
+    let resetSeconds = 60
     
     var width: CGFloat!
     var center: CGFloat!
@@ -104,7 +115,6 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will appear")
         
         // calculate animation offsets
         
@@ -140,19 +150,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         billInput.becomeFirstResponder()
-        print("view did load")
         
         // check default amount expire
-        
-        
-        let oldTime = defaults.objectForKey("defaultBillChanged")
-        let nowTime = NSDate()
-        
-        // TODO
-        // WHY does it say optional around my old time?
-        // how to compare the two times
-        
-        print(oldTime, nowTime)
+        let lastTime = defaults.objectForKey("defaultBillChanged") as! NSDate
+        let thisTime = NSDate()
+        let elapsed = Int(thisTime .timeIntervalSinceDate(lastTime))
+    
+        if (elapsed > resetSeconds) {
+            defaults.removeObjectForKey("defaultBill")
+        }
         
         // if we have a saved value for bill amount and its none empty and we have no previous input...
 
@@ -165,17 +171,14 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("view did appear")
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        print("view will disappear")
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("view did disappear")
     }
     
     override func didReceiveMemoryWarning() {
