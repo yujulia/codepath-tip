@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
     let formatter = NSNumberFormatter()
+    var firstLoad = false;
     
     func clearOutputs() {
         tipOutput.text = "$0"
@@ -29,18 +30,14 @@ class ViewController: UIViewController {
         total2.text = "$0"
         total3.text = "$0"
         
-        self.tipPanel.frame.origin.x = 320
-        self.totalPanel.frame.origin.x = -320
-        self.billPanel.frame.origin.y = 200
-    
-//        UIView.animateWithDuration(0.3, animations:  {() in
-//            self.tipPanel.frame.origin.x = 320
-//            self.totalPanel.frame.origin.x = -320
-//            }, completion:{(Bool)  in
-//                UIView.animateWithDuration(0.3, animations: {
-//                    self.billPanel.frame.origin.y = 200
-//                })
-//        })
+        UIView.animateWithDuration(0.3, animations:  {() in
+            self.tipPanel.frame.origin.x = 320
+            self.totalPanel.frame.origin.x = -320
+            }, completion:{(Bool)  in
+                UIView.animateWithDuration(0.3, animations: {
+                    self.billPanel.frame.origin.y = 200
+                })
+        })
     }
     
     func showOutputs() {
@@ -50,22 +47,22 @@ class ViewController: UIViewController {
             return
         }
         
-        self.billPanel.frame.origin.y = 70
-        self.tipPanel.frame.origin.x = 0
-        self.totalPanel.frame.origin.x = 0
-        
-//        UIView.animateWithDuration(0.3,
-//            animations:  {() in
-//                self.billPanel.frame.origin.y = 70
-//            },
-//            completion:{(Bool) in
-//                
-//                UIView.animateWithDuration(0.3, animations: {
-//                    self.tipPanel.frame.origin.x = 0
-//                    self.totalPanel.frame.origin.x = 0
-//                })
-//            }
-//        )
+        if (firstLoad) {
+            firstLoad = false;
+        } else {
+            UIView.animateWithDuration(0.3,
+                animations:  {() in
+                    self.billPanel.frame.origin.y = 70
+                },
+                completion:{(Bool) in
+                    
+                    UIView.animateWithDuration(0.3, animations: {
+                        self.tipPanel.frame.origin.x = 0
+                        self.totalPanel.frame.origin.x = 0
+                    })
+                }
+            )
+        }
     }
     
     func updateOutputs() {
@@ -78,7 +75,6 @@ class ViewController: UIViewController {
         
         defaults.setObject(String(format: "%.2f", bill), forKey: "defaultBill")
         defaults.synchronize()
-        print("updating default bill", bill)
     
         tipOutput.text = formatter.stringFromNumber(tip)
         total1.text = formatter.stringFromNumber(total)
@@ -87,6 +83,8 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         totalPanel.frame.origin.x = -320
         tipPanel.frame.origin.x = 320
         billPanel.frame.origin.y = 70
@@ -104,7 +102,6 @@ class ViewController: UIViewController {
         }
         
         showOutputs()
-        
     }
     
     override func viewDidLoad() {
@@ -112,11 +109,10 @@ class ViewController: UIViewController {
         billInput.becomeFirstResponder()
 
         let defaultBill = defaults.stringForKey("defaultBill")
+        
         if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
-            print("default bill is", defaultBill)
             self.billInput.text = defaultBill
-            updateOutputs()
-            showOutputs()
+            firstLoad = true;
         }
     }
     
@@ -136,7 +132,6 @@ class ViewController: UIViewController {
     @IBAction func onEdit(sender: AnyObject) {
         updateOutputs()
     }
-    
 
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
