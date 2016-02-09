@@ -8,22 +8,17 @@
 
 import UIKit
 
-struct Style {
-    static func pinku() {
-        
-    }
-    
-    static func sax() {
-        
-    }
-}
-
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var PercentSegment: UISegmentedControl!
     @IBOutlet weak var ThemeSegment: UISegmentedControl!
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    let themes = ["pinku", "sax"]
+    
+    func switchTheme(themeName: String) {
+        print("theme changed to", themeName)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,13 +30,15 @@ class SettingsViewController: UIViewController {
         
         // if some segment has been choosen load those
         
-        if (defaults.objectForKey("defaultTip") != nil) {
-            PercentSegment.selectedSegmentIndex = defaults.integerForKey("defaultTip")
+        if (self.defaults.objectForKey("defaultTip") != nil) {
+            PercentSegment.selectedSegmentIndex = self.defaults.integerForKey("defaultTip")
         }
         
-        if (defaults.objectForKey("theme") != nil) {
-            ThemeSegment.selectedSegmentIndex = defaults.integerForKey("theme")
+        if (self.defaults.objectForKey("theme") != nil) {
+            ThemeSegment.selectedSegmentIndex = self.defaults.integerForKey("theme")
         }
+        
+        switchTheme(self.defaults.objectForKey("themeName") as! String)
         
     }
 
@@ -52,15 +49,18 @@ class SettingsViewController: UIViewController {
     @IBAction func onThemeChange(sender: UISegmentedControl) {
         let theme = ThemeSegment.selectedSegmentIndex
         
-        defaults.setObject(theme, forKey: "theme")
-        defaults.synchronize()
+        self.defaults.setObject(theme, forKey: "theme")
+        self.defaults.setObject(self.themes[theme], forKey: "themeName")
+        self.defaults.synchronize()
+        
+        switchTheme(self.themes[theme])
     }
     
     @IBAction func onPercentChange(sender: AnyObject) {
 
         let tip = PercentSegment.selectedSegmentIndex
         
-        defaults.setObject(tip, forKey: "defaultTip")
-        defaults.synchronize()
+        self.defaults.setObject(tip, forKey: "defaultTip")
+        self.defaults.synchronize()
     }
 }
