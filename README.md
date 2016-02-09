@@ -31,6 +31,7 @@ The following **additional** features are implemented:
 - [x] Only animate if there is a bill amount
 - [x] Added clear to bill amount
 - [x] Not sure if this is intended behavior but upon updating the default tip percent, going back to the main view will update the tip to that default since why elese would you be updating the default?
+- [x] Set the bounds based on view size so its centered in other device sizes 5+
 
 ## Video Walkthrough
 

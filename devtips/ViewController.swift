@@ -22,49 +22,62 @@ class ViewController: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
     let formatter = NSNumberFormatter()
+    
+    var width: CGFloat!
+    var center: CGFloat!
+    var billTop: CGFloat!
+    var billMiddle: CGFloat!
     var firstLoad = false;
     
+    // clear all the output labels
+    // animate tip and total out of viewport and center bill
+    //
     func clearOutputs() {
         tipOutput.text = "$0"
         total1.text = "$0"
         total2.text = "$0"
         total3.text = "$0"
         
-        UIView.animateWithDuration(0.3, animations:  {() in
-            self.tipPanel.frame.origin.x = 320
-            self.totalPanel.frame.origin.x = -320
-            }, completion:{(Bool)  in
+        UIView.animateWithDuration(0.3,
+            animations:  {() in
+                self.tipPanel.frame.origin.x = self.width
+                self.totalPanel.frame.origin.x = -1 * self.width
+            },
+            completion:{(Bool)  in
                 UIView.animateWithDuration(0.3, animations: {
-                    self.billPanel.frame.origin.y = 200
+                    self.billPanel.frame.origin.y = self.billMiddle
                 })
-        })
+            }
+        )
     }
     
+    // animate tip and total into viewport if we have input
+    //
     func showOutputs() {
         let bill = NSString(string: self.billInput.text!)
-        
         if (bill == "") {
-            return
+            return // we have no input, do nothing
         }
         
         if (firstLoad) {
-            firstLoad = false;
+            firstLoad = false // default value loaded, don't show total/tip yet...
         } else {
             UIView.animateWithDuration(0.3,
-                animations:  {() in
-                    self.billPanel.frame.origin.y = 70
+                animations: {() in
+                    self.billPanel.frame.origin.y = self.billTop
                 },
-                completion:{(Bool) in
-                    
+                completion: {(Bool) in
                     UIView.animateWithDuration(0.3, animations: {
-                        self.tipPanel.frame.origin.x = 0
-                        self.totalPanel.frame.origin.x = 0
+                        self.tipPanel.center.x = self.center
+                        self.totalPanel.center.x = self.center
                     })
                 }
             )
         }
     }
     
+    // do tip calculations and update output labels
+    //
     func updateOutputs() {
         let tipPercent = [0.18, 0.2, 0.22]
         let bill = NSString(string: billInput.text!).doubleValue
@@ -73,29 +86,49 @@ class ViewController: UIViewController {
         let t2 = total/2
         let t3 = total/3
         
-        defaults.setObject(String(format: "%.2f", bill), forKey: "defaultBill")
-        defaults.synchronize()
-    
         tipOutput.text = formatter.stringFromNumber(tip)
         total1.text = formatter.stringFromNumber(total)
         total2.text = formatter.stringFromNumber(t2)
         total3.text = formatter.stringFromNumber(t3)
+        
+        // save bill amount & time it was saved
+        
+        let timestamp = NSDate()
+        defaults.setObject(String(format: "%.2f", bill), forKey: "defaultBill")
+        defaults.setObject(timestamp, forKey: "defaultBillChanged")
+        defaults.synchronize()
     }
+    
+    //--------------------------------------------------------
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        print("view will appear")
         
-        totalPanel.frame.origin.x = -320
-        tipPanel.frame.origin.x = 320
-        billPanel.frame.origin.y = 70
+        // calculate animation offsets
+        
+        let bounds = UIScreen.mainScreen().bounds
+        self.width = bounds.size.width
+        self.billTop = CGFloat(70)
+        self.billMiddle = bounds.size.height/2 - self.billPanel.bounds.size.height
+        self.center = width / 2
+        
+        // move panels to initial position
+        
+        totalPanel.frame.origin.x = -1 * self.width
+        tipPanel.frame.origin.x = self.width
+        billPanel.frame.origin.y = self.billTop
+        
+        // set number formatter for locale
         
         formatter.numberStyle = .CurrencyStyle
         formatter.locale = NSLocale.currentLocale()
-        
         billInput.placeholder = formatter.currencySymbol
     
+        // if default tip changed, recalculate with that tip percent
+        
         let defaultTip = defaults.integerForKey("defaultTip")
-
         if (tipControl.selectedSegmentIndex != defaultTip) {
             tipControl.selectedSegmentIndex = defaultTip
             updateOutputs()
@@ -107,13 +140,42 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         billInput.becomeFirstResponder()
+        print("view did load")
+        
+        // check default amount expire
+        
+        
+        let oldTime = defaults.objectForKey("defaultBillChanged")
+        let nowTime = NSDate()
+        
+        // TODO
+        // WHY does it say optional around my old time?
+        // how to compare the two times
+        
+        print(oldTime, nowTime)
+        
+        // if we have a saved value for bill amount and its none empty and we have no previous input...
 
         let defaultBill = defaults.stringForKey("defaultBill")
-        
         if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
             self.billInput.text = defaultBill
             firstLoad = true;
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print("view did appear")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will disappear")
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("view did disappear")
     }
     
     override func didReceiveMemoryWarning() {
