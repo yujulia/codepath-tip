@@ -1,6 +1,6 @@
-# Pre-work - DevTips
+# Pre-work - Tip
 
-DevTips is a tip calculator application for iOS.
+Tip is a tip calculator application for iOS.
 
 Submitted by: Julia Yu
 
