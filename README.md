@@ -1,16 +1,12 @@
-# Pre-work - Tip
+# Pre-work - DevTips
 
-Tip is a tip calculator application for iOS.
+DevTips is a tip calculator application for iOS.
 
 Submitted by: Julia Yu
 
-![tip demo](tip-demo.gif)
+![devtips demo](devtips.gif)
 
-After 60 seconds the bill amount should be cleared and the default tip percent still remembered.
-
-![tip demo](tip-demo-later.gif)
-
-Time spent: 8 hours spent in total
+Time spent: 16 hours spent in total
 
 ## User Stories
 
@@ -26,19 +22,15 @@ The following **optional** features are implemented:
 * [x] After an extended period of time, clear the state.
 * [x] Using locale-specific currency and currency thousands separators.
 * [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
-* [ ] Add a light/dark color theme to the settings view. In viewWillAppear, update views with the correct theme colors.
+* [x] Add a light/dark color theme to the settings view. In viewWillAppear, update views with the correct theme colors. [BUG: unable to change the clear button color in input... ]
 
 The following **additional** features are implemented:
 
 - [x] Changed the tint of all the defaults
-- [x] Staggered animations - animate on completion of another animation
-- [x] Only animate if there is a bill amount
+- [x] Only show outputs if there is a bill amount
 - [x] Added clear to bill amount
 - [x] Not sure if this is intended behavior but upon updating the default tip percent, going back to the main view will update the tip to that default since why elese would you be updating the default?
 - [x] Set the bounds based on view size so its centered in other device sizes 5+
-
-## Video Walkthrough
-
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
