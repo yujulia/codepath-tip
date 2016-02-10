@@ -5,7 +5,7 @@ DevTips is a tip calculator application for iOS.
 Submitted by: Julia Yu
 
 Shows
-![devtips demo](devtips.gif) ![devtips demo](devtips-after.gif)
+![tips demo](tips.gif)
 
 Time spent: 16 hours spent in total
 
