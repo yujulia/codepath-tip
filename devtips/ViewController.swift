@@ -28,13 +28,13 @@ class ViewController: UIViewController {
     var center: CGFloat!
     var billTop: CGFloat!
     var billMiddle: CGFloat!
-    var firstLoad = false;
     
     func changeColors(bgColor: UIColor, fgColor: UIColor) {
         self.view.backgroundColor = bgColor
         self.view.tintColor = fgColor
         navigationController?.navigationBar.barTintColor = fgColor
         navigationController?.navigationBar.tintColor = bgColor
+        self.billInput.tintColor = fgColor
     }
     
     func switchTheme(themeName: String) {
@@ -51,51 +51,45 @@ class ViewController: UIViewController {
         }
     }
     
-    // clear all the output labels
-    // animate tip and total out of viewport and center bill
-    //
+    func beginInput() {
+        UIView.animateWithDuration(0.5,
+            animations:  {() in
+                self.billPanel.frame.origin.y = self.billMiddle
+            }
+        )
+    }
+    
+    func endInput() {
+        UIView.animateWithDuration(0.5,
+            animations:  {() in
+                self.billPanel.frame.origin.y = self.billTop
+            }
+        )
+    }
+    
     func clearOutputs() {
         tipOutput.text = "$0"
         total1.text = "$0"
         total2.text = "$0"
         total3.text = "$0"
         
-        UIView.animateWithDuration(0.3,
+        UIView.animateWithDuration(0.5,
             animations:  {() in
                 self.tipPanel.frame.origin.x = self.width
                 self.totalPanel.frame.origin.x = -1 * self.width
-            },
-            completion:{(Bool)  in
-                UIView.animateWithDuration(0.3, animations: {
-                    self.billPanel.frame.origin.y = self.billMiddle
-                })
+                self.tipPanel.alpha = 0
             }
         )
     }
-    
-    // animate tip and total into viewport if we have input
-    //
+
     func showOutputs() {
-        let bill = NSString(string: self.billInput.text!)
-        if (bill == "") {
-            return // we have no input, do nothing
-        }
-        
-        if (firstLoad) {
-            firstLoad = false // default value loaded, don't show total/tip yet...
-        } else {
-            UIView.animateWithDuration(0.3,
-                animations: {() in
-                    self.billPanel.frame.origin.y = self.billTop
-                },
-                completion: {(Bool) in
-                    UIView.animateWithDuration(0.3, animations: {
-                        self.tipPanel.center.x = self.center
-                        self.totalPanel.center.x = self.center
-                    })
-                }
-            )
-        }
+        UIView.animateWithDuration(0.5,
+            animations: {() in
+                self.tipPanel.center.x = self.center
+                self.totalPanel.center.x = self.center
+                self.tipPanel.alpha = 1
+            }
+        )
     }
     
     // do tip calculations and update output labels
@@ -122,11 +116,20 @@ class ViewController: UIViewController {
     }
     
     //--------------------------------------------------------
+
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // check default amount expire
+        let lastTime = defaults.objectForKey("defaultBillChanged") as! NSDate
+        let thisTime = NSDate()
+        let elapsed = Int(thisTime .timeIntervalSinceDate(lastTime))
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        switchTheme(self.defaults.objectForKey("themeName") as! String)
+        if (elapsed > resetSeconds) {
+            defaults.setObject("", forKey: "defaultBill")
+            defaults.synchronize()
+        }
         
         // calculate animation offsets
         
@@ -142,22 +145,29 @@ class ViewController: UIViewController {
         tipPanel.frame.origin.x = self.width
         billPanel.frame.origin.y = self.billTop
         
+        // if we have a saved value for bill amount and its none empty and we have no previous input...
+        
+        let defaultBill = defaults.stringForKey("defaultBill")
+        if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
+            self.billInput.text = defaultBill
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        switchTheme(self.defaults.objectForKey("themeName") as! String)
+        
         // set number formatter for locale
         
         formatter.numberStyle = .CurrencyStyle
         formatter.locale = NSLocale.currentLocale()
         formatter.groupingSeparator = ","
-        billInput.placeholder = formatter.currencySymbol
         
-        // if we have a saved value for bill amount and its none empty and we have no previous input...
-        let defaultBill = defaults.stringForKey("defaultBill")
-        if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
-            self.billInput.text = defaultBill
-            firstLoad = true
-        } else {
-            firstLoad = false
-        }
-    
+        // update placeholder
+        
+        let str = NSAttributedString(string: formatter.currencySymbol, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        billInput.attributedPlaceholder = str
+        
         // if default tip changed, recalculate with that tip percent
         
         let defaultTip = defaults.integerForKey("defaultTip")
@@ -166,23 +176,9 @@ class ViewController: UIViewController {
             updateOutputs()
         }
         
-        showOutputs()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        clearOutputs()
+        beginInput()
         billInput.becomeFirstResponder()
-        
-        // check default amount expire
-        let lastTime = defaults.objectForKey("defaultBillChanged") as! NSDate
-        let thisTime = NSDate()
-        let elapsed = Int(thisTime .timeIntervalSinceDate(lastTime))
-    
-        if (elapsed > resetSeconds) {
-            defaults.setObject("", forKey: "defaultBill")
-            defaults.synchronize()
-        }
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -202,11 +198,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onEditBegin(sender: AnyObject) {
+        beginInput()
         clearOutputs()
-        updateOutputs()
     }
     
     @IBAction func onEditEnd(sender: AnyObject) {
+        let bill = NSString(string: self.billInput.text!)
+        if (bill == "") {
+            return // we have no input, do nothing
+        }
+        
+        updateOutputs()
+        endInput()
         showOutputs()
     }
 
