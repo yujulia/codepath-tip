@@ -59,7 +59,9 @@ class SettingsViewController: UIViewController {
             ThemeSegment.selectedSegmentIndex = self.defaults.integerForKey("theme")
         }
         
-        switchTheme(self.defaults.objectForKey("themeName") as! String)
+        if (self.defaults.objectForKey("themeName") != nil) {
+            switchTheme(self.defaults.objectForKey("themeName") as! String)
+        }
         
     }
 

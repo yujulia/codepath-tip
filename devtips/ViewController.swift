@@ -127,9 +127,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // check default amount expire
-        let lastTime = defaults.objectForKey("defaultBillChanged") as! NSDate
+        var lastTime = NSDate()
         let thisTime = NSDate()
+        
+        // check default amount expire
+        
+        if (defaults.objectForKey("defaultBillChanged") != nil){
+            lastTime = defaults.objectForKey("defaultBillChanged") as! NSDate
+        }
+    
         let elapsed = Int(thisTime .timeIntervalSinceDate(lastTime))
     
         if (elapsed > resetSeconds) {
@@ -162,7 +168,10 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        switchTheme(self.defaults.objectForKey("themeName") as! String)
+        
+        if (self.defaults.objectForKey("themeName") != nil) {
+            switchTheme(self.defaults.objectForKey("themeName") as! String)
+        }
         
         // set number formatter for locale
         
