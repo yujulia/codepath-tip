@@ -4,7 +4,8 @@ DevTips is a tip calculator application for iOS.
 
 Submitted by: Julia Yu
 
-![devtips demo](devtips.gif)
+Shows
+![devtips demo](devtips.gif) ![devtips demo](devtips-after.gif)
 
 Time spent: 16 hours spent in total
 
@@ -31,6 +32,8 @@ The following **additional** features are implemented:
 - [x] Added clear to bill amount
 - [x] Not sure if this is intended behavior but upon updating the default tip percent, going back to the main view will update the tip to that default since why elese would you be updating the default?
 - [x] Set the bounds based on view size so its centered in other device sizes 5+
+- [x] Staggered animation
+- [x] Changed placeholder color
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

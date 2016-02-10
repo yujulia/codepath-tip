@@ -51,33 +51,20 @@ class ViewController: UIViewController {
         }
     }
     
-    func beginInput() {
-        UIView.animateWithDuration(0.5,
-            animations:  {() in
-                self.billPanel.frame.origin.y = self.billMiddle
-            }
-        )
-    }
-    
-    func endInput() {
-        UIView.animateWithDuration(0.5,
-            animations:  {() in
-                self.billPanel.frame.origin.y = self.billTop
-            }
-        )
-    }
-    
     func clearOutputs() {
         tipOutput.text = "$0"
         total1.text = "$0"
         total2.text = "$0"
         total3.text = "$0"
-        
+
         UIView.animateWithDuration(0.5,
             animations:  {() in
                 self.tipPanel.frame.origin.x = self.width
                 self.totalPanel.frame.origin.x = -1 * self.width
                 self.tipPanel.alpha = 0
+            },
+            completion: {(Bool) in
+                self.beginInput()
             }
         )
     }
@@ -88,6 +75,25 @@ class ViewController: UIViewController {
                 self.tipPanel.center.x = self.center
                 self.totalPanel.center.x = self.center
                 self.tipPanel.alpha = 1
+            }
+        )
+    }
+    
+    func beginInput() {
+        UIView.animateWithDuration(0.3,
+            animations:  {() in
+                self.billPanel.frame.origin.y = self.billMiddle
+            }
+        )
+    }
+    
+    func endInput() {
+        UIView.animateWithDuration(0.3,
+            animations:  {() in
+                self.billPanel.frame.origin.y = self.billTop
+            },
+            completion: {(Bool) in
+                self.showOutputs()
             }
         )
     }
@@ -135,6 +141,7 @@ class ViewController: UIViewController {
         
         let bounds = UIScreen.mainScreen().bounds
         self.width = bounds.size.width
+        
         self.billTop = CGFloat(70)
         self.billMiddle = bounds.size.height/2 - self.billPanel.bounds.size.height
         self.center = width / 2
@@ -177,7 +184,6 @@ class ViewController: UIViewController {
         }
         
         clearOutputs()
-        beginInput()
         billInput.becomeFirstResponder()
     }
     
@@ -198,7 +204,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onEditBegin(sender: AnyObject) {
-        beginInput()
         clearOutputs()
     }
     
@@ -210,7 +215,6 @@ class ViewController: UIViewController {
         
         updateOutputs()
         endInput()
-        showOutputs()
     }
 
     @IBAction func onEdit(sender: AnyObject) {
