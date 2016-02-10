@@ -8,16 +8,6 @@
 
 import UIKit
 
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
-}
-
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
-}
-
-extension NSDate: Comparable { }
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var billInput: UITextField!
@@ -39,6 +29,27 @@ class ViewController: UIViewController {
     var billTop: CGFloat!
     var billMiddle: CGFloat!
     var firstLoad = false;
+    
+    func changeColors(bgColor: UIColor, fgColor: UIColor) {
+        self.view.backgroundColor = bgColor
+        self.view.tintColor = fgColor
+        navigationController?.navigationBar.barTintColor = fgColor
+        navigationController?.navigationBar.tintColor = bgColor
+    }
+    
+    func switchTheme(themeName: String) {
+        let pinkuColor = UIColor(red: 232.0/255, green: 101.0/255, blue: 209.0/255, alpha: 1.0)
+        let saxColor = UIColor(red: 166.0/255, green: 181.0/255, blue: 190.0/255, alpha: 1.0)
+        
+        switch themeName {
+        case "pinku":
+            changeColors(pinkuColor, fgColor: UIColor.whiteColor())
+        case "black":
+            changeColors(UIColor.blackColor(), fgColor: UIColor.whiteColor())
+        default:
+            changeColors(saxColor, fgColor: UIColor.whiteColor())
+        }
+    }
     
     // clear all the output labels
     // animate tip and total out of viewport and center bill
@@ -115,6 +126,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        switchTheme(self.defaults.objectForKey("themeName") as! String)
         
         // calculate animation offsets
         
@@ -136,6 +148,15 @@ class ViewController: UIViewController {
         formatter.locale = NSLocale.currentLocale()
         formatter.groupingSeparator = ","
         billInput.placeholder = formatter.currencySymbol
+        
+        // if we have a saved value for bill amount and its none empty and we have no previous input...
+        let defaultBill = defaults.stringForKey("defaultBill")
+        if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
+            self.billInput.text = defaultBill
+            firstLoad = true
+        } else {
+            firstLoad = false
+        }
     
         // if default tip changed, recalculate with that tip percent
         
@@ -162,15 +183,6 @@ class ViewController: UIViewController {
             defaults.synchronize()
         }
         
-        // if we have a saved value for bill amount and its none empty and we have no previous input...
-
-        let defaultBill = defaults.stringForKey("defaultBill")
-        if (defaultBill != "" && defaultBill != "0.00" && billInput.text == "") {
-            self.billInput.text = defaultBill
-            firstLoad = true
-        } else {
-            firstLoad = false
-        }
     }
     
     override func viewDidAppear(animated: Bool) {

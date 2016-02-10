@@ -173,7 +173,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="65"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="SnellRoundhand-Black" family="Snell Roundhand" pointSize="40"/>
-                                        <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="2" height="1"/>
                                     </label>
@@ -222,13 +222,17 @@
                     <view key="view" contentMode="scaleToFill" id="u9T-ya-2vp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="21" affinity="minX"/>
+                            <userLayoutGuide location="296" affinity="minX"/>
+                        </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" id="QAc-A5-q0t">
                                 <rect key="frame" x="23" y="66" width="275" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="obJ-KM-8Ba">
-                                        <rect key="frame" x="0.0" y="83" width="275" height="29"/>
+                                        <rect key="frame" x="-2" y="83" width="277" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
                                             <segment title="18%"/>
@@ -247,7 +251,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="V1o-qh-K8a">
                                 <rect key="frame" x="22" y="220" width="275" height="128"/>
@@ -266,13 +269,13 @@
                                         <segments>
                                             <segment title="Pinku"/>
                                             <segment title="Sax"/>
+                                            <segment title="Black"/>
                                         </segments>
                                         <connections>
                                             <action selector="onThemeChange:" destination="Vf0-ln-int" eventType="valueChanged" id="Rpx-KX-5Ch"/>
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -281,6 +284,8 @@
                     <connections>
                         <outlet property="PercentSegment" destination="obJ-KM-8Ba" id="fCW-Co-OGg"/>
                         <outlet property="ThemeSegment" destination="BTy-iq-Lvx" id="FLB-HB-oe1"/>
+                        <outlet property="percentLabel" destination="gDh-8X-HNI" id="Z51-8A-BfX"/>
+                        <outlet property="themeLabel" destination="nti-wT-7LD" id="hZ9-QL-0En"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWf-1S-dRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
